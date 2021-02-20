@@ -16,15 +16,15 @@ const ListItem = ({
 
   return (
     <React.Fragment>
-    <Link to={`/report/${index + 1}`}>
-      <div className={`list-item ${isSelected ? 'active' : ''}`}>
-        <div className="file">
-         <span className="label">{`Report ${index + 1}`}</span>
-          <div 
-            className="report"
+    <Link className="item" to={`/report/${index + 1}`}>
+      <div className={`content ${isSelected ? 'green' : ''}`}>
+        
+        <span className="">{`Report ${index + 1}  `}</span>
+          <span 
+            className=""
             dangerouslySetInnerHTML={{ __html: report }}
-          ></div>
-        </div>
+          ></span>
+        
       
       </div>
       </Link>

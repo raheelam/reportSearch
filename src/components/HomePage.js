@@ -85,6 +85,13 @@ export default class HomePage extends React.Component {
               return `<mark>${match}</mark>`;
             })
           };
+        }).map((file)=>{
+          const indx = file.report.split(/[?.!]/);
+          return{ ...file,
+            report: file.report.replace(indx[0], (match) => {
+              return `<b>${match}</b>`;
+            })
+          }
         });
     } else {
       list = files;

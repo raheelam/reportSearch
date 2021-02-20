@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const FilesList = ({ files, isSearchView, counter }) => {
   return (
-    <div className="list ">
+    <div className="ui relaxed celled list ">
       {files.length > 0 ? (
         files.map((file, index) => {
           return (
