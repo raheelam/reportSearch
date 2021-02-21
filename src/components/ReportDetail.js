@@ -16,14 +16,12 @@ const ReportDetail = ({report, results, reports}) =>{
         <div className="container w-screen  m-auto h-screen p-5">
           
           <div className="bg-gray-100 grid grid-cols-12 box-border border-4  w-full h-4/5 sm:h-3/5">
-            <div className=" col-span-12 sm:col-span-7  sm:border-r-4 p-5">
+            <div className=" col-span-12 sm:col-span-7  sm:border-r-4 p-5 overflow-y-auto">
                 <h1 className="text-xl font-bold">{`Report ${report.id}`}</h1>
                 {report.report}
-                <Link className="" to={`/report/${(ind === 0 && (results.length !== 1))? report.id  :results[ind - 1].id}`}><p>Prev</p></Link>
-                
-                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><p>Next</p></Link>
+               
             </div>
-            <div  className=" relative col-span-12 sm:col-span-5 border-t-4 sm:border-t-0  p-5">
+            <div  className=" overflow-y-auto relative col-span-12 sm:col-span-5 border-t-4 sm:border-t-0  p-5">
                 <div>
                      <h1 className="font-semibold">Active tags</h1>
                      {
@@ -36,11 +34,14 @@ const ReportDetail = ({report, results, reports}) =>{
                         <RTag reportTags={report.tags} reportId={report.id}  />
                      }
                 </div>
+                <Link className="" to={`/report/${(ind === 0 && (results.length !== 1))? report.id  :results[ind - 1].id}`}><button className="ml-9 p-1 hover:bg-purple-400 border-2 absolute bottom-7 ">Prev</button></Link>
+                
+                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute bottom-7 ">Next</button></Link>
                 <p className="absolute bottom-0 text-gray-400 ">Click on a tag to add or remove it.</p>    
             </div>
           </div>
           <div className="text-center mt-5 ">
-          <Link className="my-5 p-3 bg-gray-100 transition-colors duration-150 focus:shadow-outline hover:bg-gray-800 rounded-lg border-4 text-center" to="/">CLOSE</Link>
+          <Link className="my-5 p-3 bg-purple-200 transition-colors duration-150 focus:shadow-outline hover:bg-purple-400 rounded-lg border-4 text-center" to="/">CLOSE</Link>
           </div>
         </div>
     );
