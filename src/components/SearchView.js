@@ -10,10 +10,10 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
   useEffect(() => {
     inputRef.current.focus();
     searchMethodRef.current.focus();
-  }, []);
+  }, [searchMethod]);
 
-  const onInputChange = (input) => {
-    if(searchMethod === "include"){
+  const onInputChange = (input, sMethod) => {
+    if(sMethod === "include"){
       onSearch(input);
     }else{
       onSearchExclude(input);
@@ -22,9 +22,11 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
   };
 
   return (
-    <div className="search-box">
-      Search for reports: <span className="slash"></span>
-      <input
+    <div className="">
+      <label htmlFor="sinput">Search for reports: </label>
+      <input 
+        id="sinput"
+        className="mr-5 mb-3"
         type="text"
         name="input"
         value={input}
@@ -33,12 +35,13 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
         onChange={(event)=>{
           const input = event.target.value;
           setInput(input);
-          onInputChange(input);}}
+          onInputChange(input, searchMethod);}}
       />
-      Search filter:
-      <select ref={searchMethodRef} value={searchMethod} onChange={(event)=>{
-        setSearchMethod(event.target.value);
-        onInputChange();
+      <label htmlFor="smethod">Search filter:</label>
+      <select id="smethod" className="ml-2 mb-3" ref={searchMethodRef} value={searchMethod} onChange={(event)=>{
+        const sMethod = event.target.value;
+        setSearchMethod(sMethod);
+        onInputChange(input, sMethod);
       }}>
         <option value="include">include words</option>
         <option value="exclude">exclude words</option>
