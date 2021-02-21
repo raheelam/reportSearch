@@ -1,15 +1,9 @@
+export let sResults = [];
 const files = [
-  {
-    id: 0,
-    report: 'hello father how are you? fdbfuiug fghhigf jfhghgif jkfhgf hello hi whatevr whatever whatever',
-    comment: 'changes for adding loader overlay',
-    tags: [1,3],
-    modified_time: '2020-06-30T11:44:41Z',
-    
-  },
+ 
   {
     id: 1,
-    report: 'hello father how are you? fdbfuiug fghhigf jfhghgif jkfhgf hello hi whatevr whatever whatever',
+    report: 'hello father how are you! hello father how are you? fdbfuiug fghhigf jfhghgif jkfhgf hello hi whatevr whatever whatever',
     comment: 'changes for adding loader overlay',
     tags: [1,3],
     modified_time: '2020-06-30T11:44:41Z',

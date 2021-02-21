@@ -1,77 +1,70 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {sResults} from "../utils/api"
 
-import {activateTag, deactivateTag} from "../actions";
 
-const tags = [{id: 1, tag: "hello"},{id:2, tag:"wedidit"},{id:3,tag:"#whatever"}]
-const ReportDetail = (props) =>{
-    
-    const product = props.reports.find(file => file.id.toString() === props.match.params.id.toString());
-    console.log(product);
-    const inactiveTags = tags.filter(tag => (product.tags.indexOf(tag.id) < 0));
-    const activeTags = tags.filter(tag => (product.tags.indexOf(tag.id) >= 0));
 
-    const tagClickR = (event) =>{
-        const selectedTagId = parseInt(event.target.value[event.target.value.length - 2]);
-        console.log(selectedTagId);
-        props.deactivateTag({reportId: props.match.params.id, selectedTagId: selectedTagId});
-        
-       
-       
+import RTag from "./RTag";
 
-     }
+const ReportDetail = ({report, results, reports}) =>{
+  
+    console.log('======',report, "===");
+    const ind = results.findIndex(r => r.id === report.id);
 
-     const tagClickA = (event) =>{
-        const selectedTagId = parseInt(event.target.value[event.target.value.length - 2]);
-        console.log(selectedTagId);
-        props.activateTag({reportId: props.match.params.id, selectedTagId: selectedTagId});
-        /*const selectedTagId = event.target.value[event.target.value.length - 2];
-        console.log(selectedTagId);
-        const tempFiles =  files.map(report => {
-            if(report.id.toString() === props.match.params.id.toString()){
-              report.tags = [...report.tags, selectedTagId];
-              return report;
-        }else{
-            return report;
-        }});
-        console.log(tempFiles);
-        files.length = 0;
-        files.concat(tempFiles); */
-        
- 
-      }
     return(
-        <div className="ui container">
-
-        
-          <div className="ui grid">
-            <div className="ten wide column ">
-                {product.report}
+        <div className="container w-screen  m-auto h-screen p-5">
+          
+          <div className="bg-gray-100 grid grid-cols-12 box-border border-4  w-full h-4/5 sm:h-3/5">
+            <div className=" col-span-12 sm:col-span-7  sm:border-r-4 p-5">
+                <h1 className="text-xl font-bold">{`Report ${report.id}`}</h1>
+                {report.report}
+                <Link className="" to={`/report/${(ind === 0 && (results.length !== 1))? report.id  :results[ind - 1].id}`}><p>Prev</p></Link>
+                
+                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><p>Next</p></Link>
             </div>
-            <div  className="six wide column ">
+            <div  className=" relative col-span-12 sm:col-span-5 border-t-4 sm:border-t-0  p-5">
                 <div>
-                     <h1>Active tags</h1>
+                     <h1 className="font-semibold">Active tags</h1>
                      {
-                        activeTags.map(tag => <button value={`#${tag.tag}(${tag.id})`} onClick={tagClickR} className="primary" key={tag.id}>{`#${tag.tag}(${tag.id})`}</button>)
+                       <RTag active={true} reportTags={report.tags} reportId={report.id}  />
                      }
                 </div>
                 <div>
-                     <h1>Inactive tags</h1>
+                     <h1 className="font-semibold">Inactive tags</h1>
                      {
-                        inactiveTags.map( tag => <button value={`#${tag.tag}(${tag.id})`} onClick={tagClickA} className="primary" key={tag.id}>{`#${tag.tag}(${tag.id})`}</button>)
+                        <RTag reportTags={report.tags} reportId={report.id}  />
                      }
-                </div>      
+                </div>
+                <p className="absolute bottom-0 text-gray-400 ">Click on a tag to add or remove it.</p>    
             </div>
           </div>
-          <Link className="ui btn " to="/">GO BACK</Link>
+          <div className="text-center mt-5 ">
+          <Link className="my-5 p-3 bg-gray-100 transition-colors duration-150 focus:shadow-outline hover:bg-gray-800 rounded-lg border-4 text-center" to="/">CLOSE</Link>
+          </div>
         </div>
     );
 }
-   const mapStateToProps = (state) =>{
-       console.log(state.reports);
+   const mapStateToProps = (state, ownProps) =>{
+       let report;
+       let result;
+       console.log("====",sResults);
+      if(sResults.length > 0){
+        // report = sResults[0].find(report => report.id.toString() === ownProps.match.params.id.toString());
+         report =state.reports.find(report => report.id.toString() === ownProps.match.params.id.toString());
+         result = sResults[0];
+         
+       }else{
+        report = state.reports.find(report => report.id.toString() === ownProps.match.params.id.toString());
+        result= state.reports;
+      } 
+        
+        console.log(report);
         return{
-            reports: state.reports
+            results: result, 
+            report: report, 
+            reports: state.reports,
+
         }
     }
-export default connect(mapStateToProps, {activateTag, deactivateTag})(ReportDetail);
+export default connect(mapStateToProps)(ReportDetail);

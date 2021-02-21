@@ -1,29 +1,29 @@
 import React from 'react';
-import moment from 'moment';
-import { AiFillFolder, AiOutlineFile, AiOutlineRight } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import {Link}  from 'react-router-dom';
+import RTag from './RTag'
 
 const ListItem = ({
   index,
   report,
-  tag,
-  modified_time,
-  isSearchView,
-  counter
+  tags
 }) => {
-  const isSelected = counter === index;
+  
 
   return (
     <React.Fragment>
-    <Link className="item" to={`/report/${index + 1}`}>
-      <div className={`content ${isSelected ? 'green' : ''}`}>
+    <Link  className=" my-0.5  border-2 hover:bg-green-500 itemss" to={`/report/${index + 1}`}>
+    <p className="whitespace-nowrap font-semibold "><b>{`Report ${index + 1}  `}</b></p>
+      <div className={`grid grid-cols-12 `}>
         
-        <span className="">{`Report ${index + 1}  `}</span>
-          <span 
-            className=""
+        
+          <p
+            className="truncate col-span-9"
             dangerouslySetInnerHTML={{ __html: report }}
-          ></span>
+          ></p>
+          <p className=" truncate col-span-3 text-right"><RTag disabled={true} active={true} reportId={index+1} reportTags = {tags} /></p>
+          
+            
         
       
       </div>
@@ -35,10 +35,7 @@ const ListItem = ({
 ListItem.propTypes = {
   index: PropTypes.number.isRequired,
   report: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
-  modified_time: PropTypes.string.isRequired,
-  isSearchView: PropTypes.bool,
-  counter: PropTypes.number
+  tags: PropTypes.array.isRequired,
 };
 
 export default ListItem;

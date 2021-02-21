@@ -2,9 +2,9 @@ import React from 'react';
 import ListItem from './ListItem';
 import PropTypes from 'prop-types';
 
-const FilesList = ({ files, isSearchView, counter }) => {
+const FilesList = ({ files }) => {
   return (
-    <div className="ui relaxed celled list ">
+    <div className="flex flex-col h-4/5 overflow-y-auto">
       {files.length > 0 ? (
         files.map((file, index) => {
           return (
@@ -12,8 +12,6 @@ const FilesList = ({ files, isSearchView, counter }) => {
               key={file.id}
               {...file}
               index={index}
-              isSearchView={isSearchView}
-              counter={counter}
             />
           );
         })
@@ -28,8 +26,6 @@ const FilesList = ({ files, isSearchView, counter }) => {
 
 FilesList.propTypes = {
   files: PropTypes.array.isRequired,
-  isSearchView: PropTypes.bool,
-  counter: PropTypes.number
 };
 
 export default FilesList;

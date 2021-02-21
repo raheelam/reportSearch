@@ -1,18 +1,53 @@
 import React from "react";
+import {connect} from "react-redux";
 
-const RTag = ({ isActive, tag}) =>{
-  const tagColor = isActive? 'green' : 'red';
-  const tagClick=()=>{
-    if(isActive){
-       //remove from the tag list of that report
+import {activateTag, deactivateTag} from "../actions";
+//company tags
+const tags = [{id: 1, tag: "hello",color:"green"},{id:2, tag:"wedidit", color: "red"},{id:3,tag:"#whatever", color: "red"}]
+//COMPONENT START
+const RTag = ({ active, reportTags, disabled, activateTag, deactivateTag, reportId}) =>{
+  
+  const inactiveTags = tags.filter(tag => (reportTags.indexOf(tag.id) < 0));
+  const activeTags = tags.filter(tag => (reportTags.indexOf(tag.id) >= 0));
+ 
+  //EVENT HANDLERS
+  const tagClickR = (event) =>{
+    if(disabled !== true){
+    const selectedTagId = parseInt(event.target.value[event.target.value.length - 2]);
+    deactivateTag({reportId: reportId, selectedTagId: selectedTagId});
     }
   }
-  
-  return (
-          <form>
-            <button onClick={tagClick} className={tagColor}>#{tag}</button>
-          </form>
-          );
+  const tagClickA = (event) =>{
+    
+    const selectedTagId = parseInt(event.target.value[event.target.value.length - 2]);
+    activateTag({reportId: reportId, selectedTagId: selectedTagId});
+  }
+  const showTags = () =>{
+    if(active === true){
+      return activeTags.map(tag => 
+        <button 
+            className={`bg-${tag.color}-200 m-1 hover:p-5`}
+            value={`#${tag.tag}(${tag.id})`} 
+            onClick={tagClickR}  
+            key={tag.id}>
+            {`#${tag.tag}(${tag.id})`}
+        </button>);
+    }
+      return inactiveTags.map(tag => 
+        <button 
+            className = {`bg-${tag.color}-200 m-1 hover:p-5`}
+            value={`#${tag.tag}(${tag.id})`} 
+            onClick={tagClickA}  
+            key={tag.id}>
+            {`#${tag.tag}(${tag.id})`}
+        </button>);
+  }
+  return showTags();
 };
 
-export default RTag;
+
+
+
+
+
+export default connect(null,{activateTag, deactivateTag})(RTag);
