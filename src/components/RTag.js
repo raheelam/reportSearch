@@ -2,8 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {activateTag, deactivateTag} from "../actions";
-//company tags
-const tags = [{id: 1, tag: "hello",color:"green"},{id:2, tag:"wedidit", color: "red"},{id:3,tag:"#whatever", color: "red"}]
+//company tags  
+const tags = [{id: 1, tag: "good report",color:"green"},{id:2, tag:"condition present", color: "red"}]
 //COMPONENT START
 const RTag = ({ active, reportTags, disabled, activateTag, deactivateTag, reportId}) =>{
   
