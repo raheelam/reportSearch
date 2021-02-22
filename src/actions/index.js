@@ -21,3 +21,11 @@ export const deactivateTag = (tag) =>{
 
 };
 
+export const clearTags = (reportId) =>{
+    return{
+        type: "CLEAR_TAGS",
+        payload: reportId
+    }
+
+};
+

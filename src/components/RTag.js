@@ -6,7 +6,7 @@ import {activateTag, deactivateTag} from "../actions";
 const tags = [{id: 1, tag: "good report",color:"green"},{id:2, tag:"condition present", color: "red"}]
 //COMPONENT START
 const RTag = ({ active, reportTags, disabled, activateTag, deactivateTag, reportId}) =>{
-  
+
   const inactiveTags = tags.filter(tag => (reportTags.indexOf(tag.id) < 0));
   const activeTags = tags.filter(tag => (reportTags.indexOf(tag.id) >= 0));
  

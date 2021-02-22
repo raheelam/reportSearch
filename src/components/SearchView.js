@@ -54,7 +54,7 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
        
       }}>
         
-        <option  defaultValue  value="include">include words</option>
+        <option value="include">include words</option>
         <option value="exclude">exclude words</option>
       </select>
       </div>

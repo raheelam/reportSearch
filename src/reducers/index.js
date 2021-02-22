@@ -25,7 +25,13 @@ const reportsReducer = (state=[...reports], action) =>{
             }else{
                 return report;
             }}));
-        
+        case "CLEAR_TAGS":
+            return ( state.map(report => {
+                if(report.id.toString() === action.payload.toString()){
+                  report.tags = [];
+            }
+            return report;
+        }));
 
         default:
             return state;

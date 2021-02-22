@@ -1,20 +1,57 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+
 import {sResults} from "../utils/api"
 
-
+import {NUMBER_ONE_CODE,NUMBER_TWO_CODE} from '../utils/keyCodes';
+import {activateTag, clearTags} from "../actions";
 
 import RTag from "./RTag";
 
-const ReportDetail = ({report, results, reports}) =>{
-  if(!results || !reports|| !report){
-    return;
+
+const ReportDetail = ({report, results, reports, activateTag, clearTags}) =>{
+  let history = useHistory();
+   
+ //handling events 
+  useEffect(()=>{
+    const eventHandler = (event) =>{
+      const keyCode = event.key;
+      switch (keyCode) {
+        case "1":
+          activateTag({reportId: report.id, selectedTagId: 1});
+          break;
+        case "2":
+          activateTag({reportId: report.id, selectedTagId: 2});
+          break;
+        case "Delete":
+          clearTags(report.id);
+          break;
+        case "ArrowLeft":
+          history.push(`/report/${prev}`);
+          break;
+        case "ArrowRight":
+          history.push(`/report/${next}`);
+          break;
+        default:
+          break;
+      }
+     
   }
+    window.addEventListener('keydown', eventHandler);
+    return ()=>{
+      window.removeEventListener('keydown', eventHandler);
+    }
+  },[report]);
+ 
+
   
+
     console.log('======',report, "===");
     console.log('======',results, "===");
     const ind = results.findIndex(r => r.id === report.id);
+    const prev = (ind === 0 && (results.length > 1))? report.id : results[ind - 1].id;
+    const next = (ind === (results.length - 1)) ? report.id  : results[ind + 1].id;
     console.log(ind);
 
     return(
@@ -39,9 +76,9 @@ const ReportDetail = ({report, results, reports}) =>{
                         <RTag reportTags={report.tags} reportId={report.id}  />
                      }
                 </div>
-                <Link className="" to={`/report/${(ind === 0 && (results.length > 1))? report.id : results[ind - 1].id}`}><button className="mr-2 p-1 hover:bg-purple-400 border-2 absolute right-20 sm:left-1 bottom-7 ">Prev</button></Link>
+                <Link className="" to={`/report/${prev}`}><button className="mr-2 p-1 hover:bg-purple-400 border-2 absolute right-20 sm:left-1 bottom-7 ">Prev</button></Link>
                 
-                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute right-1 sm:left-20 bottom-7 ">Next</button></Link>
+                <Link className="" to={`/report/${next}`}><button className="border-2 p-1  hover:bg-purple-400 absolute right-1 sm:left-20 bottom-7 ">Next</button></Link>
                 <p className="absolute bottom-0 text-gray-400 ">Click on a tag to add or remove it.</p>    
             </div>
           </div>
@@ -71,4 +108,4 @@ const ReportDetail = ({report, results, reports}) =>{
 
         }
     }
-export default connect(mapStateToProps)(ReportDetail);
+export default connect(mapStateToProps,{activateTag, clearTags})(ReportDetail);
