@@ -17,7 +17,16 @@ import {getSearchResult} from '../actions';
     isSearchView: false,
     filesList: files,
     counter: 0
-  };
+  }
+
+  componentDidMount(){
+    if(sResults.length > 0){
+      this.setState({
+        filesList: sResults[0],
+        counter: 0
+      });
+    }
+  }
 
   
    
@@ -50,12 +59,7 @@ import {getSearchResult} from '../actions';
     if (searchTerm) {
       const pattern = new RegExp(searchTerm, 'gi');
       console.log(files);
-      const temp =  this.props.reports.filter((file) =>file.report.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 );
-      sResults.length = 0;
-      if(temp.length > 0){
-        this.props.getSearchResult(temp);
-        sResults.push([...temp]);
-      }
+     
       list = this.props.reports.filter((file) =>file.report.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 )
         .map((file) => {
           return {
@@ -88,9 +92,14 @@ import {getSearchResult} from '../actions';
     } else {
       list = this.props.reports;
       this.props.getSearchResult(list);
-      sResults.length = 0;
-      sResults.push([...list]);
+     
       
+    }
+
+    sResults.length = 0;
+    if(list.length > 0){
+      this.props.getSearchResult(list);
+      sResults.push([...list]);
     }
     
     this.setState({
@@ -129,7 +138,8 @@ import {getSearchResult} from '../actions';
 
 const mapStateToProps = (state) =>{
     return{
-      reports: state.reports
+      reports: state.reports,
+      
     }
 }
 export default connect(mapStateToProps, {getSearchResult})(HomePage);

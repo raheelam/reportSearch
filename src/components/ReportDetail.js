@@ -8,9 +8,14 @@ import {sResults} from "../utils/api"
 import RTag from "./RTag";
 
 const ReportDetail = ({report, results, reports}) =>{
+  if(!results || !reports|| !report){
+    return;
+  }
   
     console.log('======',report, "===");
+    console.log('======',results, "===");
     const ind = results.findIndex(r => r.id === report.id);
+    console.log(ind);
 
     return(
         <div className="container w-screen  m-auto h-screen p-5">
@@ -34,9 +39,9 @@ const ReportDetail = ({report, results, reports}) =>{
                         <RTag reportTags={report.tags} reportId={report.id}  />
                      }
                 </div>
-                <Link className="" to={`/report/${(ind === 0 && (results.length !== 1))? report.id  :results[ind - 1].id}`}><button className="ml-9 p-1 hover:bg-purple-400 border-2 absolute bottom-7 ">Prev</button></Link>
+                <Link className="" to={`/report/${(ind === 0 && (results.length > 1))? report.id : results[ind - 1].id}`}><button className="mr-2 p-1 hover:bg-purple-400 border-2 absolute right-1 sm:left-1 bottom-7 ">Prev</button></Link>
                 
-                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute bottom-7 ">Next</button></Link>
+                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute right-20 sm:left-20 bottom-7 ">Next</button></Link>
                 <p className="absolute bottom-0 text-gray-400 ">Click on a tag to add or remove it.</p>    
             </div>
           </div>

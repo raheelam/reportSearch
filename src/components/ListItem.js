@@ -6,14 +6,15 @@ import RTag from './RTag'
 const ListItem = ({
   index,
   report,
+  id,
   tags
 }) => {
   
 
   return (
     <React.Fragment>
-    <Link  className=" my-0.5  border-2 hover:bg-green-500 itemss" to={`/report/${index + 1}`}>
-    <p className="whitespace-nowrap font-semibold "><b>{`Report ${index + 1}  `}</b></p>
+    <Link  className=" my-0.5  border-2 hover:bg-green-500 itemss" to={`/report/${id}`}>
+    <p className="whitespace-nowrap font-semibold "><b>{`Report ${id}  `}</b></p>
       <div className={`grid grid-cols-12 `}>
         
         
