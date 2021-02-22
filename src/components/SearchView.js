@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const SearchView = ({ onSearch, onSearchExclude}) => {
   const [input, setInput] = useState('');
-  const [searchMethod, setSearchMethod] = useState('');
+  const [searchMethod, setSearchMethod] = useState('include');
   const inputRef = useRef();
   const searchMethodRef = useRef();
   
