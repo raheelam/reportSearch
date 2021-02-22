@@ -5,11 +5,11 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
   const [input, setInput] = useState('');
   const [searchMethod, setSearchMethod] = useState('');
   const inputRef = useRef();
-  const searchMethodRef = useRef();
+  
 
   useEffect(() => {
     inputRef.current.focus();
-    searchMethodRef.current.focus();
+    
   }, []);
 
   const onInputChange = (input, sMethod) => {
@@ -38,7 +38,7 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
           onInputChange(input, searchMethod);}}
       />
       <label htmlFor="smethod">Search filter:</label>
-      <select id="smethod" className="ml-2 mb-3" ref={searchMethodRef} value={searchMethod} onChange={(event)=>{
+      <select id="smethod" className="ml-2 mb-3" value={searchMethod} onChange={(event)=>{
         const sMethod = event.target.value;
         setSearchMethod(sMethod);
         onInputChange(input, sMethod);
