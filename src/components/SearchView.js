@@ -10,7 +10,7 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
   useEffect(() => {
     inputRef.current.focus();
     searchMethodRef.current.focus();
-  }, [searchMethod]);
+  }, []);
 
   const onInputChange = (input, sMethod) => {
     if(sMethod === "include"){
