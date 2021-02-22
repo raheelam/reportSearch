@@ -39,9 +39,9 @@ const ReportDetail = ({report, results, reports}) =>{
                         <RTag reportTags={report.tags} reportId={report.id}  />
                      }
                 </div>
-                <Link className="" to={`/report/${(ind === 0 && (results.length > 1))? report.id : results[ind - 1].id}`}><button className="mr-2 p-1 hover:bg-purple-400 border-2 absolute right-1 sm:left-1 bottom-7 ">Prev</button></Link>
+                <Link className="" to={`/report/${(ind === 0 && (results.length > 1))? report.id : results[ind - 1].id}`}><button className="mr-2 p-1 hover:bg-purple-400 border-2 absolute right-20 sm:left-1 bottom-7 ">Prev</button></Link>
                 
-                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute right-20 sm:left-20 bottom-7 ">Next</button></Link>
+                <Link className="" to={`/report/${(ind === (results.length - 1)) ? report.id  : results[ind + 1].id}`}><button className="border-2 p-1  hover:bg-purple-400 absolute right-1 sm:left-20 bottom-7 ">Next</button></Link>
                 <p className="absolute bottom-0 text-gray-400 ">Click on a tag to add or remove it.</p>    
             </div>
           </div>
@@ -55,13 +55,11 @@ const ReportDetail = ({report, results, reports}) =>{
        let report;
        let result;
        console.log("====",sResults);
+       report = state.reports.find(report => report.id.toString() === ownProps.match.params.id.toString());
       if(sResults.length > 0){
         // report = sResults[0].find(report => report.id.toString() === ownProps.match.params.id.toString());
-         report =state.reports.find(report => report.id.toString() === ownProps.match.params.id.toString());
          result = sResults[0];
-         
        }else{
-        report = state.reports.find(report => report.id.toString() === ownProps.match.params.id.toString());
         result= state.reports;
       } 
         

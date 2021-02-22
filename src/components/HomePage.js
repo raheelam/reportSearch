@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+
 
 import Header from './Header';
 import FilesList from './FilesList';
@@ -14,23 +14,16 @@ import {getSearchResult} from '../actions';
    
  class HomePage extends React.Component {
   state = {
-    isSearchView: false,
-    filesList: files,
-    counter: 0
+    filesList: files
   }
 
   componentDidMount(){
     if(sResults.length > 0){
       this.setState({
-        filesList: sResults[0],
-        counter: 0
+        filesList: sResults[0]
       });
     }
   }
-
-  
-   
-
 
   handleSearchExclude = (searchTerm) =>{
     let list;
@@ -49,8 +42,7 @@ import {getSearchResult} from '../actions';
     }
     
     this.setState({
-      filesList: list,
-      counter: 0
+      filesList: list
     });
   }
 
@@ -91,9 +83,8 @@ import {getSearchResult} from '../actions';
         
     } else {
       list = this.props.reports;
+      //just for testing sake
       this.props.getSearchResult(list);
-     
-      
     }
 
     sResults.length = 0;
@@ -104,7 +95,6 @@ import {getSearchResult} from '../actions';
     
     this.setState({
       filesList: list,
-      counter: 0
     });
   };
   
@@ -114,23 +104,11 @@ import {getSearchResult} from '../actions';
     return (
       <div className="container w-screen  m-auto h-screen p-5">
         <Header />
-        {isSearchView ? (
-          <div className="search-view">
-            <SearchView onSearch={this.handleSearch} />
-            
-            <FilesList
-              files={filesList}
-              isSearchView={isSearchView}
-              counter={counter}
-            />
-          </div>
-        ) : (
           <React.Fragment>
-          <Link className="bg-gray-500" to="/add"><p>Add a Report</p></Link>
           <SearchView onSearchExclude={this.handleSearchExclude} onSearch={this.handleSearch} />
           <FilesList files={filesList} />
           </React.Fragment>
-        )}
+        
       </div>
     );
   }

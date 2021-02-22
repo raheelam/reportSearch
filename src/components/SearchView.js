@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const SearchView = ({ onSearch, onSearchExclude}) => {
   const [input, setInput] = useState('');
-  const [searchMethod, setSearchMethod] = useState('include');
+  const [searchMethod, setSearchMethod] = useState('');
   const inputRef = useRef();
   const searchMethodRef = useRef();
   
@@ -24,10 +24,11 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
 
   return (
     <div className="">
+    <div className="block sm:inline">
       <label htmlFor="sinput">Search for reports: </label>
       <input 
         id="sinput"
-        className="mr-5 mb-3"
+        className="mr-0 sm:mr-5 mb-3 "
         type="text"
         name="input"
         value={input}
@@ -40,7 +41,10 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
           
           }}
       />
-      <label htmlFor="smethod">Search filter:</label>
+      </div>
+      <div className="block sm:inline">
+
+      <label className="block sm: inline" htmlFor="smethod">Search filter:</label>
       <select id="smethod" ref={searchMethodRef}  className="ml-2 mb-3" value={searchMethod} 
       onChange={(event)=>{
         const sMethod = event.target.value;
@@ -49,10 +53,11 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
        
        
       }}>
-        <option  value="include">include words</option>
+        
+        <option  defaultValue  value="include">include words</option>
         <option value="exclude">exclude words</option>
       </select>
-      
+      </div>
     </div>
   );
 };
