@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const SearchView = ({ onSearch, onSearchExclude}) => {
   const [input, setInput] = useState('');
-  const [searchMethod, setSearchMethod] = useState('include');
+  const [searchMethod, setSearchMethod] = useState('');
   const inputRef = useRef();
   const searchMethodRef = useRef();
 
@@ -43,7 +43,7 @@ const SearchView = ({ onSearch, onSearchExclude}) => {
         setSearchMethod(sMethod);
         onInputChange(input, sMethod);
       }}>
-        <option value="include">include words</option>
+        <option defaultChecked value="include">include words</option>
         <option value="exclude">exclude words</option>
       </select>
       
